@@ -121,7 +121,7 @@ function decorateIcons(root) {
   });
 }
 
-function renderCities(items, cityGrid) {
+export function renderCities(items, cityGrid) {
   cityGrid.innerHTML = items.map(cityCardMarkup).join('');
 }
 
