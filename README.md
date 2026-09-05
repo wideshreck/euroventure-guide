@@ -34,4 +34,6 @@ Site `http://localhost:4173` adresinde açılır. Sunucuyu durdurmak için termi
 
 ## Statik yayınlama
 
-Herhangi bir statik barındırma sağlayıcısında depo kökünü yayın dizini olarak seçin. Çalışan site için gereken dosyalar `index.html`, `styles.css` ve `src/` klasörüdür. GitHub Pages için kaynak olarak `main` dalını ve `/ (root)` klasörünü seçebilirsiniz; özel bir derleme komutu gerekmez.
+Çalışan site için gereken dosyalar yalnızca `index.html`, `styles.css` ve `src/` klasörüdür; özel bir derleme komutu gerekmez. Diğer proje ve test dosyalarının yayınlanmaması için dağıtım çıktısını yalnızca bu üç yolu içerecek şekilde hazırlayın.
+
+Bu deponun GitHub Pages yayını, geçmişi olmayan özel bir `gh-pages` dalının `/ (root)` klasöründen sunulur. `main` geliştirme dalıdır ve doğrudan Pages kaynağı olarak kullanılmaz. Yeni bir sürüm yayınlarken üç çalışma zamanı yolundan yeni bir yetim dağıtım commit'i oluşturun, `gh-pages` dalını bu commit'e taşıyıp gönderin ve dal ağacının başka dosya içermediğini `git ls-tree -r --name-only gh-pages` ile doğrulayın.
