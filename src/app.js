@@ -125,11 +125,16 @@ export function renderCities(items, cityGrid) {
   cityGrid.innerHTML = items.map(cityCardMarkup).join('');
 }
 
-export function bindCityCardActions(cityGrid, dialog, dialogContent, catalog = cities) {
+export function bindCityCardActions(cityGrid, dialog, dialogContent, catalog = cities, openCity = null) {
   cityGrid.querySelectorAll('[data-open-city]').forEach((button) => {
     button.addEventListener('click', () => {
       const city = catalog.find((item) => item.slug === button.dataset.openCity);
       if (!city) return;
+
+      if (openCity) {
+        openCity(city, button);
+        return;
+      }
 
       dialogContent.innerHTML = cityDialogMarkup(city);
       dialogContent.querySelector('[data-close-dialog]')?.addEventListener('click', () => dialog.close());
@@ -138,14 +143,91 @@ export function bindCityCardActions(cityGrid, dialog, dialogContent, catalog = c
   });
 }
 
+function createCityDialogController(dialog, dialogContent) {
+  let lastFocused;
+
+  dialog.addEventListener('close', () => {
+    lastFocused?.focus();
+    lastFocused = null;
+  });
+
+  dialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    dialog.close();
+  });
+
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  return (city, origin) => {
+    lastFocused = origin;
+    dialogContent.innerHTML = cityDialogMarkup(city);
+
+    const closeButton = dialogContent.querySelector('[data-close-dialog]');
+    closeButton?.addEventListener('click', () => dialog.close());
+    dialog.showModal();
+    closeButton?.focus();
+  };
+}
+
 function initialize() {
   const cityGrid = document.querySelector('#city-grid');
   const dialog = document.querySelector('#city-dialog');
   const dialogContent = document.querySelector('#dialog-content');
-  if (!cityGrid || !dialog || !dialogContent) return;
+  const searchInput = document.querySelector('#search-input');
+  const filterList = document.querySelector('#filter-list');
+  const resultCount = document.querySelector('#result-count');
+  const emptyState = document.querySelector('#empty-state');
+  const resetSearch = document.querySelector('#reset-search');
+  const randomCity = document.querySelector('#random-city');
+  if (!cityGrid || !dialog || !dialogContent || !searchInput || !filterList || !resultCount || !emptyState || !resetSearch || !randomCity) return;
 
-  renderCities(filterCities(cities), cityGrid);
-  bindCityCardActions(cityGrid, dialog, dialogContent);
+  let activeFilter = 'all';
+  let visibleCities = cities;
+  const openCity = createCityDialogController(dialog, dialogContent);
+
+  function updateDirectory() {
+    visibleCities = filterCities(cities, searchInput.value, activeFilter);
+    renderCities(visibleCities, cityGrid);
+    bindCityCardActions(cityGrid, dialog, dialogContent, cities, openCity);
+
+    filterList.querySelectorAll('[data-filter]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.filter === activeFilter));
+    });
+
+    resultCount.textContent = `${visibleCities.length} şehir gösteriliyor`;
+    emptyState.hidden = visibleCities.length !== 0;
+  }
+
+  searchInput.addEventListener('input', updateDirectory);
+  filterList.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-filter]');
+    if (!button || !filterList.contains(button)) return;
+
+    activeFilter = button.dataset.filter;
+    updateDirectory();
+  });
+
+  resetSearch.addEventListener('click', () => {
+    searchInput.value = '';
+    activeFilter = 'all';
+    updateDirectory();
+    searchInput.focus();
+  });
+
+  randomCity.addEventListener('click', () => {
+    if (!visibleCities.length) return;
+
+    const city = visibleCities[Math.floor(Math.random() * visibleCities.length)];
+    const card = cityGrid.querySelector(`#city-${city.slug}`);
+    const origin = card?.querySelector('[data-open-city]') ?? randomCity;
+
+    card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    openCity(city, origin);
+  });
+
+  updateDirectory();
   decorateIcons(document);
 }
 
