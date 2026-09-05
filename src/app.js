@@ -175,13 +175,14 @@ function initialize() {
   const cityGrid = document.querySelector('#city-grid');
   const dialog = document.querySelector('#city-dialog');
   const dialogContent = document.querySelector('#dialog-content');
+  const searchForm = document.querySelector('.search-form');
   const searchInput = document.querySelector('#search-input');
   const filterList = document.querySelector('#filter-list');
   const resultCount = document.querySelector('#result-count');
   const emptyState = document.querySelector('#empty-state');
   const resetSearch = document.querySelector('#reset-search');
   const randomCity = document.querySelector('#random-city');
-  if (!cityGrid || !dialog || !dialogContent || !searchInput || !filterList || !resultCount || !emptyState || !resetSearch || !randomCity) return;
+  if (!cityGrid || !dialog || !dialogContent || !searchForm || !searchInput || !filterList || !resultCount || !emptyState || !resetSearch || !randomCity) return;
 
   let activeFilter = 'all';
   let visibleCities = cities;
@@ -201,6 +202,9 @@ function initialize() {
   }
 
   searchInput.addEventListener('input', updateDirectory);
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
   filterList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-filter]');
     if (!button || !filterList.contains(button)) return;
@@ -221,10 +225,10 @@ function initialize() {
 
     const city = visibleCities[Math.floor(Math.random() * visibleCities.length)];
     const card = cityGrid.querySelector(`#city-${city.slug}`);
-    const origin = card?.querySelector('[data-open-city]') ?? randomCity;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    openCity(city, origin);
+    card?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+    openCity(city, randomCity);
   });
 
   updateDirectory();
