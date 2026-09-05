@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="On Avrupa şehri için kısa rotalar, bütçe notları ve yerel öneriler.">
+    <meta name="theme-color" content="#11130f">
+    <title>EuroVenture | Avrupa şehir rehberi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="wordmark" href="#top" aria-label="EuroVenture ana sayfa">EuroVenture</a>
+        <p class="site-header__count">10 şehir, tek saha rehberi</p>
+        <a class="header-action" href="#sehirler">Şehirleri gör <span data-icon="arrow-down"></span></a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow">Avrupa şehir rehberi</p>
+          <h1 id="hero-title">Şehri ezberden değil, iyi notlarla gezin.</h1>
+          <p class="hero__intro">On Avrupa şehri için görülmeye değer duraklar, kısa konaklama önerileri ve yolda işinize yarayacak ulaşım notları.</p>
+
+          <form class="search-form" role="search">
+            <label for="search-input">Şehir, ülke veya deneyim ara</label>
+            <div class="search-form__control">
+              <span class="search-form__icon" data-icon="search"></span>
+              <input id="search-input" name="q" type="search" autocomplete="off" placeholder="Örneğin Berlin veya müze">
+            </div>
+          </form>
+        </div>
+
+        <div class="hero__contact-sheet" aria-hidden="true">
+          <figure class="hero-photo hero-photo--istanbul">
+            <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="">
+            <figcaption>İstanbul, 41.0082° K</figcaption>
+          </figure>
+          <figure class="hero-photo hero-photo--paris">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="">
+            <figcaption>Paris, 48.8566° K</figcaption>
+          </figure>
+          <figure class="hero-photo hero-photo--barcelona">
+            <img src="https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="">
+            <figcaption>Barselona, 41.3874° K</figcaption>
+          </figure>
+          <svg class="hero__route" viewBox="0 0 620 590" aria-hidden="true" focusable="false">
+            <path pathLength="1" d="M55 177 C126 94 214 112 247 194 C282 280 177 325 229 414 C269 481 389 438 446 489 C472 512 478 535 482 555"></path>
+          </svg>
+          <span class="hero__route-marker"></span>
+        </div>
+      </section>
+
+      <section class="directory" id="sehirler" aria-labelledby="directory-title">
+        <div class="directory__heading">
+          <div>
+            <p class="eyebrow">Seçili rotalar</p>
+            <h2 id="directory-title">Şehir rehberleri</h2>
+          </div>
+          <p id="result-count" class="result-count" aria-live="polite">10 şehir gösteriliyor</p>
+        </div>
+
+        <div class="directory__toolbar">
+          <div id="filter-list" class="filter-list" role="group" aria-label="Şehirleri filtrele">
+            <button type="button" data-filter="all" aria-pressed="true">Tüm şehirler</button>
+            <button type="button" data-filter="budget" aria-pressed="false">Hesaplı</button>
+            <button type="button" data-filter="classic" aria-pressed="false">Klasikler</button>
+            <button type="button" data-filter="warm" aria-pressed="false">Sıcak rotalar</button>
+          </div>
+          <button id="random-city" class="random-city" type="button">Rastgele bir şehir seç <span data-icon="sparkles"></span></button>
+        </div>
+
+        <div id="city-grid" class="city-grid"></div>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <span data-icon="map-pin"></span>
+          <h3>Bu aramayla eşleşen şehir yok.</h3>
+          <p>Başka bir şehir, ülke veya deneyim deneyin.</p>
+          <button id="reset-search" type="button">Tüm şehirleri göster</button>
+        </div>
+
+        <noscript>
+          <p>Şehir kartlarını ve filtreleri kullanmak için JavaScript’i etkinleştirin.</p>
+        </noscript>
+      </section>
+
+      <dialog id="city-dialog" class="city-dialog" aria-labelledby="dialog-title">
+        <div id="dialog-content" class="dialog-content">
+          <h2 id="dialog-title">Şehir rehberi</h2>
+        </div>
+      </dialog>
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>EuroVenture</strong> kısa Avrupa kaçamakları için düzenlenmiş bağımsız bir şehir rehberidir.</p>
+      <p>Fotoğraflar Unsplash üzerinden sunulur. Güncel ulaşım ve giriş koşullarını resmi kaynaklardan doğrulayın.</p>
+    </footer>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
