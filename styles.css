@@ -80,7 +80,8 @@ input {
 
 :focus-visible {
   outline: 3px solid var(--lime);
-  outline-offset: 4px;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 7px var(--ink);
 }
 
 .site-header {
@@ -110,7 +111,10 @@ input {
 
 .wordmark {
   grid-column: 1 / span 3;
+  display: inline-flex;
+  align-items: center;
   width: max-content;
+  min-height: 2.75rem;
   color: var(--cloud);
   font-size: 1.05rem;
   font-weight: 700;
@@ -689,12 +693,12 @@ input {
 
 .city-card__meta dd,
 .city-detail__meta dd {
-  overflow: hidden;
   margin: 0;
   font-size: 0.76rem;
   font-weight: 650;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .city-card__highlights {
@@ -760,11 +764,18 @@ input {
   display: none;
 }
 
-.empty-state > svg {
-  width: 2.25rem;
-  height: 2.25rem;
+.empty-state > [data-icon] {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   margin: 0 auto 1.25rem;
   color: var(--signal);
+}
+
+.empty-state > [data-icon] svg {
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .empty-state h3 {
@@ -1432,7 +1443,8 @@ noscript {
 
   .city-detail__header h2 {
     max-width: 100%;
-    font-size: clamp(3.8rem, 20vw, 5.4rem);
+    font-size: clamp(3.1rem, 15.5vw, 4.5rem);
+    overflow-wrap: anywhere;
   }
 
   .city-detail__highlights {
