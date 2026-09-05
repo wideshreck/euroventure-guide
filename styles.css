@@ -1404,10 +1404,14 @@ noscript {
     overflow: visible;
   }
 
-  .city-dialog,
-  .city-detail__body {
+  .city-dialog {
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+
+  .city-detail__body {
+    overflow: visible;
+    overscroll-behavior: auto;
   }
 
   .city-detail__close {

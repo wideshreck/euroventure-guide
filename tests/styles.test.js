@@ -70,6 +70,23 @@ test('mobile dialog title stays bounded and can wrap safely', async () => {
   assert.match(mobileRule, /overflow-wrap:\s*anywhere/);
 });
 
+test('mobile dialog keeps a single outer scroll container', async () => {
+  const css = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
+  const mobileStart = css.indexOf('@media (max-width: 719px)');
+  const mobileEnd = css.indexOf('@media (prefers-reduced-motion: reduce)', mobileStart);
+  const mobileCss = css.slice(mobileStart, mobileEnd);
+  const dialogRules = [...mobileCss.matchAll(/\.city-dialog\s*\{([^}]*)\}/g)].map((match) => match[1]);
+  const bodyRules = [...mobileCss.matchAll(/\.city-detail__body\s*\{([^}]*)\}/g)].map((match) => match[1]);
+  const dialogScrollRule = dialogRules.find((rule) => /overflow-y:\s*auto/.test(rule)) ?? '';
+  const bodyScrollRule = bodyRules.find((rule) => /overscroll-behavior:/.test(rule)) ?? '';
+
+  assert.match(dialogScrollRule, /overflow-y:\s*auto/);
+  assert.match(dialogScrollRule, /overscroll-behavior:\s*contain/);
+  assert.match(bodyScrollRule, /overflow:\s*visible/);
+  assert.match(bodyScrollRule, /overscroll-behavior:\s*auto/);
+  assert.doesNotMatch(bodyScrollRule, /overflow-y:\s*auto/);
+});
+
 test('wordmark meets the minimum touch target', async () => {
   const css = await readFile(new URL('../styles.css', import.meta.url), 'utf8');
   const wordmarkRule = css.match(/\.wordmark\s*\{([^}]*)\}/)?.[1] ?? '';

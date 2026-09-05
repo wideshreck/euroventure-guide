@@ -2,6 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
+test('document declares an embedded favicon', async () => {
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+
+  assert.match(html, /<link rel="icon" href="data:image\/svg\+xml,/);
+});
+
 test('page exposes the required landmarks and controls', async () => {
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8');
   for (const value of ['<header', '<main', '<footer', 'id="search-input"', 'id="city-grid"', '<dialog', 'id="dialog-title"']) {
