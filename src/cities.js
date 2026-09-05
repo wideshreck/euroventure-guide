@@ -65,7 +65,7 @@ export const cities = [
       do: ['Tempelhofer Feld’de paten', 'Mauerpark açık hava karaokesi', 'Friedrichshain kulüpleri'],
     },
     stays: ['Merkezi ve düzenli: Mitte.', 'Bohem ve butik: Prenzlauer Berg.', 'Gece hayatı ve sanat: Friedrichshain veya Kreuzberg.'],
-    transport: ['BER Havalimanı: FEX veya S9/S45 ile merkeze geçin.', 'Bilet uyarısı: Turnikesiz istasyonlarda biletinizi perondaki cihazda damgalayın.'],
+    transport: ['BER Havalimanı: Güncel bağlantı ve hareket saatini VBB’nin resmi yolculuk planlayıcısından kontrol edin.', 'Bilet uyarısı: Turnikesiz istasyonlarda biletinizi perondaki cihazda damgalayın.'],
     notes: ['Reichstag kubbesi için giriş şartlarını ve rezervasyonu resmi kaynaktan kontrol edin.', 'Kulüp kapılarında gösterişsiz giyinmek ve sırada sakin kalmak yaygın beklentidir.'],
   },
   {
@@ -111,7 +111,7 @@ export const cities = [
       do: ['Operada ayakta bilet', 'Prater dönme dolabı', 'Grinzing bağ evleri'],
     },
     stays: ['Tarihi merkez: Innere Stadt.', 'Sanat ve kafeler: Neubau.', 'Geniş ve rahat sokaklar: Leopoldstadt.'],
-    transport: ['Schwechat: S7 banliyö treni, ekspres trene ekonomik bir alternatiftir.', 'Şehir içi: 24 veya 48 saatlik kartlar metro ve tramvaylarda geçerlidir.'],
+    transport: ['Schwechat: S7 banliyö treni, ekspres trene ekonomik bir alternatiftir.', 'Şehir içi: Seyahatinize uygun güncel bilet türü ve ücretini Wiener Linien’den kontrol edin.'],
     notes: ['Devlet Operası ayakta izleme biletlerinin satış koşullarını aynı gün kontrol edin.', 'Pazar günü süpermarketler dahil birçok işletme kapalı olur.'],
   },
   {
